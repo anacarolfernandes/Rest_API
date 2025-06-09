@@ -5,7 +5,6 @@ const termInput = document.getElementById("term");
 // Respect user's motion preference
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-// Typewriter placeholder effect (slower + inside container)
 if (!prefersReducedMotion) {
   const phrases = ["e.g. cap", "e.g. sus", "e.g. no cap", "e.g. slay"];
   let i = 0;
@@ -17,7 +16,7 @@ if (!prefersReducedMotion) {
   function typeEffect() {
     if (isDeleting) {
       termInput.placeholder = currentPhrase.substring(0, j--);
-      if (j === 0) {
+      if (j < 0) {
         isDeleting = false;
         i = (i + 1) % phrases.length;
         currentPhrase = phrases[i];
@@ -25,17 +24,17 @@ if (!prefersReducedMotion) {
       }
     } else {
       termInput.placeholder = currentPhrase.substring(0, j++);
-      if (j === currentPhrase.length + 1) {
-        if (pauseCounter < 12) { // longer pause
+      if (j > currentPhrase.length) {
+        if (pauseCounter < 15) {
           pauseCounter++;
-          setTimeout(typeEffect, 400); // pause before deleting
+          setTimeout(typeEffect, 250);
           return;
         }
         isDeleting = true;
       }
     }
 
-    setTimeout(typeEffect, isDeleting ? 200 : 250); // slowed typing/deleting speed
+    setTimeout(typeEffect, isDeleting ? 150 : 180);
   }
 
   typeEffect();
