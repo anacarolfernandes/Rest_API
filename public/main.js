@@ -2,7 +2,7 @@ const form = document.getElementById("searchForm");
 const resultBox = document.getElementById("result");
 const termInput = document.getElementById("term");
 
-// Respect user's motion preference
+
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 if (!prefersReducedMotion) {

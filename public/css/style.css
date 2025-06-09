@@ -1,13 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;800&display=swap');
 
-/* Reset */
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-/* Body */
+
 body {
   font-family: 'Rubik', sans-serif;
   background-color: #fff3ec;
@@ -21,7 +21,7 @@ body {
   transition: background-color 0.5s ease, background-image 0.5s ease;
 }
 
-/* Container */
+
 .container {
   max-width: 800px;
   margin: 0 auto;
@@ -37,7 +37,7 @@ body {
   box-shadow: 0 0 45px rgba(0, 0, 0, 0.2);
 }
 
-/* Heading */
+
 h1 {
   text-align: center;
   font-size: 2.7rem;
