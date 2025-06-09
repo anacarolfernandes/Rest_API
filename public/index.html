@@ -9,14 +9,19 @@
 <body>
   <main>
     <section class="container">
-      <h1>Urban Dictionary Lookup</h1>
+      <h1>Urban Dictionary Lookup <span class="emoji">💬</span></h1>
+
       <form id="searchForm">
         <label for="term">Enter a slang word:</label>
-        <input type="text" id="term" placeholder="e.g. cap, sus" required />
+        <input type="text" id="term" placeholder="e.g. slay 💅" required />
         <button type="submit">Search</button>
       </form>
 
-      <p class="disclaimer">🧠 Heads up! These are *real* Urban Dictionary definitions. Brace yourself for spicy language, sass, and absolutely no filters. Read at your own risk 😅</p>
+      <button id="toggleMode" class="mode-btn">🌙 Toggle Dark Mode</button>
+
+      <p class="disclaimer">
+        🧠 Heads up! These are *real* Urban Dictionary definitions. Brace yourself for spicy language, sass, and absolutely no filters. Read at your own risk 😅
+      </p>
 
       <div id="result" class="result-box">
         <!-- API result will go here -->

@@ -1,7 +1,47 @@
 const form = document.getElementById("searchForm");
 const resultBox = document.getElementById("result");
+const termInput = document.getElementById("term");
 
-// Simple profanity filter
+// Respect user's motion preference
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// Typewriter placeholder effect (slower + inside container)
+if (!prefersReducedMotion) {
+  const phrases = ["e.g. cap", "e.g. sus", "e.g. no cap", "e.g. slay"];
+  let i = 0;
+  let j = 0;
+  let currentPhrase = phrases[i];
+  let isDeleting = false;
+  let pauseCounter = 0;
+
+  function typeEffect() {
+    if (isDeleting) {
+      termInput.placeholder = currentPhrase.substring(0, j--);
+      if (j === 0) {
+        isDeleting = false;
+        i = (i + 1) % phrases.length;
+        currentPhrase = phrases[i];
+        pauseCounter = 0;
+      }
+    } else {
+      termInput.placeholder = currentPhrase.substring(0, j++);
+      if (j === currentPhrase.length + 1) {
+        if (pauseCounter < 12) { // longer pause
+          pauseCounter++;
+          setTimeout(typeEffect, 400); // pause before deleting
+          return;
+        }
+        isDeleting = true;
+      }
+    }
+
+    setTimeout(typeEffect, isDeleting ? 200 : 250); // slowed typing/deleting speed
+  }
+
+  typeEffect();
+}
+
+// Profanity filter
 const sanitizeText = (text) => {
   const blacklist = ["fuck", "shit", "bitch", "ass", "bullshit", "motherfucker"];
   blacklist.forEach(word => {
@@ -11,11 +51,11 @@ const sanitizeText = (text) => {
   return text;
 };
 
-// Listen for form submission
+// Handle form submission
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
 
-  const term = document.getElementById("term").value.trim();
+  const term = termInput.value.trim();
   if (!term) return;
 
   const options = {
@@ -41,9 +81,13 @@ form.addEventListener("submit", async (event) => {
     } else {
       resultBox.innerHTML = `<p>No definitions found for "${term}". Try another word!</p>`;
     }
-
   } catch (error) {
     console.error("Fetch error:", error);
     resultBox.innerHTML = `<p>Oops! Something went wrong. Try again later.</p>`;
   }
+});
+
+// Dark mode toggle
+document.getElementById("toggleMode").addEventListener("click", () => {
+  document.body.classList.toggle("dark-mode");
 });
